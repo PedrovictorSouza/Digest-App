@@ -1,13 +1,13 @@
 import { useState } from 'react';
 
+import { Toast } from '@/components/ui/toast';
+import { MealEvaluationPage } from '@/features/meal-evaluation';
+import { useToast } from '@/hooks/use-toast';
+
 import { DateDisplay } from './date-display';
 import { HomeHeader } from './home-header';
 import { MealsList } from './meals-list';
-import { MotivationalBanner } from './MotivationalBanner';
-
-import { MealEvaluationPage } from '@/features/meal-evaluation';
-import { Toast } from '@/components/ui/toast';
-import { useToast } from '@/hooks/use-toast';
+import { MotivationalBanner } from './motivational-banner';
 
 type Meal = {
   id: string;
