@@ -17,6 +17,16 @@ export const paths = {
     },
   },
 
+  settings: {
+    path: '/settings',
+    getHref: () => '/settings',
+  },
+
+  profile: {
+    path: '/profile',
+    getHref: () => '/profile',
+  },
+
   app: {
     root: {
       path: '/app',
@@ -41,6 +51,10 @@ export const paths = {
     profile: {
       path: 'profile',
       getHref: () => '/app/profile',
+    },
+    digestDemo: {
+      path: 'digest-demo',
+      getHref: () => '/app/digest-demo',
     },
   },
 } as const;
