@@ -10,13 +10,13 @@ type CouponCardProps = {
   isFeatured?: boolean;
 };
 
-export const CouponCard = ({ 
-  title, 
-  discount, 
-  description, 
-  validUntil, 
-  code, 
-  isFeatured = false 
+export const CouponCard = ({
+  title,
+  discount,
+  description,
+  validUntil,
+  code,
+  isFeatured = false,
 }: CouponCardProps) => {
   const [isCopied, setIsCopied] = useState(false);
 
@@ -31,20 +31,27 @@ export const CouponCard = ({
   };
 
   return (
-    <div className={`bg-white rounded-2xl p-5 mb-5 border ${
-      isFeatured ? 'border-green-300 border-2' : 'border-green-200'
-    }`}>
+    <div
+      className={`bg-white rounded-2xl p-5 mb-5 border ${
+        isFeatured ? 'border-green-300 border-2' : 'border-green-200'
+      }`}
+    >
       {isFeatured && (
         <div className="flex items-center mb-2">
           <span className="text-yellow-500 mr-1">⭐</span>
           <span className="text-xs font-medium text-yellow-600">Destaque</span>
         </div>
       )}
-      
+
       <h3 className="text-lg font-bold text-gray-800 mb-2">{title}</h3>
-      
+
       <div className="mb-3">
-        <span className="text-2xl font-bold" style={{color: 'rgb(106 155 124)'}}>{discount}</span>
+        <span
+          className="text-2xl font-bold"
+          style={{ color: 'rgb(106 155 124)' }}
+        >
+          {discount}
+        </span>
         <p className="text-gray-600 text-sm mt-1">{description}</p>
       </div>
 

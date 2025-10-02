@@ -14,7 +14,9 @@ type WeeklyInsightsProps = {
 export const WeeklyInsights = ({ insights }: WeeklyInsightsProps) => {
   return (
     <div className="mb-6">
-      <h2 className="text-xl font-bold text-gray-800 mb-4">Insights da Semana</h2>
+      <h2 className="text-xl font-bold text-gray-800 mb-4">
+        Insights da Semana
+      </h2>
       <div className="space-y-4">
         {insights.map((insight) => (
           <InsightsCard

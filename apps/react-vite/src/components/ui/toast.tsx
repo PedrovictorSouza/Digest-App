@@ -7,7 +7,12 @@ type ToastProps = {
   duration?: number;
 };
 
-export const Toast = ({ message, isVisible, onClose, duration = 3000 }: ToastProps) => {
+export const Toast = ({
+  message,
+  isVisible,
+  onClose,
+  duration = 3000,
+}: ToastProps) => {
   const [shouldRender, setShouldRender] = useState(false);
 
   useEffect(() => {
@@ -31,7 +36,7 @@ export const Toast = ({ message, isVisible, onClose, duration = 3000 }: ToastPro
       }`}
     >
       <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3">
-        <div className="w-6 h-6 rounded-full bg-green-400 flex items-center justify-center">
+        <div className="size-6 rounded-full bg-green-400 flex items-center justify-center">
           <span className="text-white text-sm">✓</span>
         </div>
         <span className="font-medium">{message}</span>

@@ -28,25 +28,25 @@ const mockInsights: Insight[] = [
     id: '1',
     icon: '🌙',
     message: 'Suas jantas estão mais satisfatórias que os cafés da manhã',
-    trend: 'up'
+    trend: 'up',
   },
   {
     id: '2',
     icon: '🍽️',
     message: 'Atenção: muitas refeições com baixa percepção nutricional',
-    trend: 'down'
+    trend: 'down',
   },
   {
     id: '3',
     icon: '✨',
     message: 'Você avaliou 85% das suas refeições esta semana',
-    trend: 'stable'
-  }
+    trend: 'stable',
+  },
 ];
 
 export const ReportsPage = () => {
   return (
-    <div className="px-24 py-6" style={{backgroundColor: '#f4f4f4'}}>
+    <div className="px-24 py-6" style={{ backgroundColor: '#f4f4f4' }}>
       <ReportHeader />
       <WeeklySummary />
       <WeeklyInsights insights={mockInsights} />

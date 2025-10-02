@@ -16,7 +16,7 @@ export const useToast = () => {
   };
 
   const hideToast = () => {
-    setToast(prev => ({ ...prev, isVisible: false }));
+    setToast((prev) => ({ ...prev, isVisible: false }));
   };
 
   return {

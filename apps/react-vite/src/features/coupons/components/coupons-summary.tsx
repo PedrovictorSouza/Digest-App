@@ -8,7 +8,7 @@ export const CouponsSummary = () => {
           <p className="text-white font-medium mb-1">Cupons disponíveis</p>
           <p className="text-3xl font-bold text-white">{availableCoupons}</p>
         </div>
-        <div className="w-16 h-16 flex items-center justify-center">
+        <div className="size-16 flex items-center justify-center">
           <span className="text-6xl">🎁</span>
         </div>
       </div>

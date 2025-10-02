@@ -30,13 +30,15 @@ export const InsightsCard = ({ icon, message, trend }: InsightsCardProps) => {
   return (
     <div className="bg-white rounded-2xl p-4 mb-4 shadow-sm border">
       <div className="flex items-start">
-        <div className="w-10 h-10 flex items-center justify-center mr-3 flex-shrink-0">
+        <div className="size-10 flex items-center justify-center mr-3 flex-shrink-0">
           <span className="text-xl">{icon}</span>
         </div>
         <div className="flex-1">
           <p className="text-gray-800 text-sm leading-relaxed">{message}</p>
           <div className="flex items-center mt-2">
-            <span className={`text-sm ${getTrendColor()}`}>{getTrendIcon()}</span>
+            <span className={`text-sm ${getTrendColor()}`}>
+              {getTrendIcon()}
+            </span>
           </div>
         </div>
       </div>

@@ -9,11 +9,14 @@ export const AchievementsCard = () => {
   return (
     <div className="bg-white rounded-2xl p-6 mb-8 shadow-sm border">
       <h2 className="text-lg font-bold text-gray-800 mb-4">Suas Conquistas</h2>
-      
+
       <div className="grid grid-cols-2 gap-4">
         {achievements.map((achievement, index) => (
           <div key={index} className="text-center">
-            <p className="text-2xl font-bold" style={{color: achievement.color}}>
+            <p
+              className="text-2xl font-bold"
+              style={{ color: achievement.color }}
+            >
               {achievement.value}
             </p>
             <p className="text-sm text-gray-600 mt-1">{achievement.label}</p>

@@ -6,13 +6,7 @@ const ClockIcon = () => (
     fill="none"
     className="text-gray-600"
   >
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="currentColor"
-      strokeWidth="2"
-    />
+    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="2" />
     <path
       d="M12 6V12L16 14"
       stroke="currentColor"
@@ -25,13 +19,7 @@ const ClockIcon = () => (
 
 const CheckIcon = () => (
   <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-    <circle
-      cx="12"
-      cy="12"
-      r="10"
-      stroke="#22c55e"
-      strokeWidth="2"
-    />
+    <circle cx="12" cy="12" r="10" stroke="#22c55e" strokeWidth="2" />
     <path
       d="M18 8L10 16L6 12"
       stroke="#22c55e"
@@ -83,7 +71,10 @@ export const MealCard = ({ meal, onEvaluate }: MealCardProps) => {
               <div className="flex size-6 items-center justify-center">
                 <CheckIcon />
               </div>
-              <span className="text-sm font-medium" style={{color: 'rgb(106 155 124)'}}>
+              <span
+                className="text-sm font-medium"
+                style={{ color: 'rgb(106 155 124)' }}
+              >
                 Avaliado
               </span>
             </>

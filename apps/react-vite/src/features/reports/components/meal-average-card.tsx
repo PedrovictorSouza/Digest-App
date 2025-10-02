@@ -4,10 +4,15 @@ type MealAverageCardProps = {
   satisfaction: number;
 };
 
-export const MealAverageCard = ({ mealName, nutrition, satisfaction }: MealAverageCardProps) => {
+export const MealAverageCard = ({
+  mealName,
+  nutrition,
+  satisfaction,
+}: MealAverageCardProps) => {
   const getNutritionColor = (value: number) => {
     if (value >= 4) return 'bg-green-500';
-    if (value >= 3) return 'bg-gradient-to-br from-[#568168] to-transparent bg-[#9bba9b]';
+    if (value >= 3)
+      return 'bg-gradient-to-br from-[#568168] to-transparent bg-[#9bba9b]';
     return 'bg-red-500';
   };
 
@@ -20,12 +25,14 @@ export const MealAverageCard = ({ mealName, nutrition, satisfaction }: MealAvera
   return (
     <div className="bg-white rounded-2xl p-5 mb-5 shadow-sm border">
       <h3 className="text-lg font-bold text-gray-800 mb-4">{mealName}</h3>
-      
+
       <div className="space-y-3">
         <div>
           <div className="flex justify-between items-center mb-1">
             <span className="text-sm font-medium text-gray-600">Nutrição</span>
-            <span className="text-sm font-bold text-gray-800">{nutrition}/5</span>
+            <span className="text-sm font-bold text-gray-800">
+              {nutrition}/5
+            </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
@@ -37,8 +44,12 @@ export const MealAverageCard = ({ mealName, nutrition, satisfaction }: MealAvera
 
         <div>
           <div className="flex justify-between items-center mb-1">
-            <span className="text-sm font-medium text-gray-600">Satisfação</span>
-            <span className="text-sm font-bold text-gray-800">{satisfaction}/5</span>
+            <span className="text-sm font-medium text-gray-600">
+              Satisfação
+            </span>
+            <span className="text-sm font-bold text-gray-800">
+              {satisfaction}/5
+            </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div

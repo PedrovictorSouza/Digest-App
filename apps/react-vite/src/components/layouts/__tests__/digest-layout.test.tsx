@@ -18,10 +18,7 @@ describe('DigestLayout', () => {
   it('deve ter ícones de relógio ao lado de cada horário', () => {
     render(<DigestLayout />);
 
-    const svgElements = document.querySelectorAll('svg');
-    const clockIcons = Array.from(svgElements).filter(svg => 
-      svg.querySelector('circle[cx="14"][cy="14"]')
-    );
+    const clockIcons = screen.getAllByTestId('clock-icon');
 
     expect(clockIcons.length).toBeGreaterThanOrEqual(3);
   });

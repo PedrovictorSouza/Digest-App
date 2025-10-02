@@ -21,7 +21,7 @@ const mockCoupons: Coupon[] = [
     description: 'Em frutas e verduras orgânicas',
     validUntil: '31/10/2025',
     code: 'DIGEST20',
-    isFeatured: true
+    isFeatured: true,
   },
   {
     id: '2',
@@ -29,7 +29,7 @@ const mockCoupons: Coupon[] = [
     discount: 'R$ 15 OFF',
     description: 'Na primeira compra acima de R$ 50',
     validUntil: '15/11/2025',
-    code: 'BEM15'
+    code: 'BEM15',
   },
   {
     id: '3',
@@ -37,13 +37,13 @@ const mockCoupons: Coupon[] = [
     discount: '10% OFF',
     description: 'Em bowls de açaí e smoothies',
     validUntil: '30/10/2025',
-    code: 'ACAI10'
-  }
+    code: 'ACAI10',
+  },
 ];
 
 export const CouponsPage = () => {
   return (
-    <div className="px-24 py-6" style={{backgroundColor: '#f4f4f4'}}>
+    <div className="px-24 py-6" style={{ backgroundColor: '#f4f4f4' }}>
       <CouponsHeader />
       <CouponsSummary />
       <CouponsList coupons={mockCoupons} />

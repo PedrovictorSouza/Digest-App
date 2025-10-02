@@ -10,14 +10,8 @@ export const HomeHeader = () => {
             strokeWidth="1.5"
             strokeLinejoin="round"
           />
-          <path
-            d="M24 8H26V10H24V8Z"
-            fill="#14B8A6"
-          />
-          <path
-            d="M6 22H8V24H6V22Z"
-            fill="#14B8A6"
-          />
+          <path d="M24 8H26V10H24V8Z" fill="#14B8A6" />
+          <path d="M6 22H8V24H6V22Z" fill="#14B8A6" />
         </svg>
         <h1 className="text-2xl font-bold text-gray-800">digest</h1>
       </div>

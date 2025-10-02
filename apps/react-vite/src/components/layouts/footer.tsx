@@ -123,7 +123,7 @@ export const Footer = ({ activeTab = 'home', onTabChange }: FooterProps) => {
               className={`text-xs ${
                 isActive ? 'font-medium' : 'text-gray-600'
               }`}
-              style={isActive ? {color: 'rgb(106 155 124)'} : {}}
+              style={isActive ? { color: 'rgb(106 155 124)' } : {}}
             >
               {tab.label}
             </span>

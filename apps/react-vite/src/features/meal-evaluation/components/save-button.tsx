@@ -17,9 +17,10 @@ export const SaveButton = ({ isEnabled, onSave }: SaveButtonProps) => {
       >
         Salvar Avaliação
       </button>
-      
+
       <p className="text-gray-400 text-sm mt-3">
-        Suas avaliações são privadas e ajudam você a ter mais consciência sobre sua alimentação.
+        Suas avaliações são privadas e ajudam você a ter mais consciência sobre
+        sua alimentação.
       </p>
     </div>
   );

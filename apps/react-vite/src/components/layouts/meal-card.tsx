@@ -32,6 +32,7 @@ const ClockIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     className="text-gray-600"
+    data-testid="clock-icon"
   >
     <circle cx="14" cy="14" r="12" stroke="currentColor" strokeWidth="2" />
     <path
