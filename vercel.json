@@ -1,21 +1,14 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/react-vite/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "apps/react-vite/$1"
-    }
-  ],
   "buildCommand": "cd apps/react-vite && npm install && npm run build",
   "outputDirectory": "apps/react-vite/dist",
-  "installCommand": "cd apps/react-vite && npm install"
+  "installCommand": "cd apps/react-vite && npm install",
+  "framework": null,
+  "functions": {},
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }

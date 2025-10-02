@@ -30,7 +30,7 @@ export default function SettingsPage() {
         <div className="flex items-center mb-6">
           <button 
             onClick={handleBack}
-            className="mr-4 text-gray-600 hover:text-gray-800 text-xl"
+            className="mr-4 text-xl text-gray-600 hover:text-gray-800"
           >
             ←
           </button>
@@ -38,8 +38,8 @@ export default function SettingsPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold text-green-800 mb-2">
+          <div className="rounded-lg bg-white p-6 shadow-sm">
+            <h2 className="mb-2 text-xl font-bold text-green-800">
               Horários das Refeições
             </h2>
             <p className="text-sm text-gray-500 mb-6">
@@ -103,8 +103,8 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold text-green-800 mb-2">
+          <div className="rounded-lg bg-white p-6 shadow-sm">
+            <h2 className="mb-2 text-xl font-bold text-green-800">
               Dados Pessoais
             </h2>
             <p className="text-sm text-gray-500 mb-6">
@@ -174,8 +174,8 @@ export default function SettingsPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            <h2 className="text-xl font-bold text-green-800 mb-2">
+          <div className="rounded-lg bg-white p-6 shadow-sm">
+            <h2 className="mb-2 text-xl font-bold text-green-800">
               Condições de Saúde
             </h2>
             <p className="text-sm text-gray-500 mb-6">

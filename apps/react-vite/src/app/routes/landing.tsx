@@ -1,14 +1,16 @@
 import { useState } from 'react';
 
 import { Footer } from '@/components/layouts';
-import { HomePage } from '@/features/home';
-import { ReportsPage } from '@/features/reports';
 import { CouponsPage } from '@/features/coupons';
+import { HomePage } from '@/features/home';
 import { ProfilePage } from '@/features/profile';
+import { ReportsPage } from '@/features/reports';
 
 const LandingRoute = () => {
   const [showFooter, setShowFooter] = useState(true);
-  const [activeTab, setActiveTab] = useState<'home' | 'reports' | 'coupons' | 'profile'>('home');
+  const [activeTab, setActiveTab] = useState<
+    'home' | 'reports' | 'coupons' | 'profile'
+  >('home');
 
   const handleTabChange = (tab: 'home' | 'reports' | 'coupons' | 'profile') => {
     setActiveTab(tab);
@@ -18,7 +20,9 @@ const LandingRoute = () => {
   const renderPage = () => {
     switch (activeTab) {
       case 'home':
-        return <HomePage onViewChange={(view) => setShowFooter(view === 'home')} />;
+        return (
+          <HomePage onViewChange={(view) => setShowFooter(view === 'home')} />
+        );
       case 'reports':
         return <ReportsPage />;
       case 'coupons':
@@ -26,7 +30,9 @@ const LandingRoute = () => {
       case 'profile':
         return <ProfilePage />;
       default:
-        return <HomePage onViewChange={(view) => setShowFooter(view === 'home')} />;
+        return (
+          <HomePage onViewChange={(view) => setShowFooter(view === 'home')} />
+        );
     }
   };
 
