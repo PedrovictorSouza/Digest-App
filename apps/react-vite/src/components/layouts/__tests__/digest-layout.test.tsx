@@ -15,12 +15,12 @@ describe('DigestLayout', () => {
     expect(dinnerTime).toBeInTheDocument();
   });
 
-  it('deve ter ícones de casa ao lado de cada horário', () => {
+  it('deve ter ícones de relógio ao lado de cada horário', () => {
     render(<DigestLayout />);
 
     const svgElements = document.querySelectorAll('svg');
     const clockIcons = Array.from(svgElements).filter(svg => 
-      svg.querySelector('path[d*="M3 9L12 2L21 9"]')
+      svg.querySelector('circle[cx="14"][cy="14"]')
     );
 
     expect(clockIcons.length).toBeGreaterThanOrEqual(3);

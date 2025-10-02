@@ -6,7 +6,8 @@ describe('LandingRoute', () => {
   it('should render header and footer', () => {
     render(<LandingRoute />);
     
-    expect(screen.getByText('Hello World')).toBeInTheDocument();
+    expect(screen.getByText('digest')).toBeInTheDocument();
+    expect(screen.getByText('Como foram suas refeições hoje?')).toBeInTheDocument();
     expect(screen.getByText('Início')).toBeInTheDocument();
     expect(screen.getByText('Perfil')).toBeInTheDocument();
   });

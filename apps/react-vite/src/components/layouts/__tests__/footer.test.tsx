@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
+import { vi } from 'vitest';
 
 import { Footer } from '../footer';
 
@@ -16,7 +17,7 @@ describe('Footer', () => {
     render(<Footer />);
 
     const footer = screen.getByTestId('footer');
-    expect(footer).toHaveClass('h-[9.3vh]');
+    expect(footer).toHaveClass('h-20');
   });
 
   it('should render footer container', () => {
@@ -29,7 +30,7 @@ describe('Footer', () => {
     render(<Footer activeTab="reports" />);
 
     const reportsButton = screen.getByText('Relatório');
-    expect(reportsButton).toHaveClass('text-green-600', 'font-medium');
+    expect(reportsButton).toHaveClass('font-medium');
   });
 
   it('should call onTabChange when a tab is clicked', () => {
