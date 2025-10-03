@@ -17,52 +17,53 @@ const demoMode = import.meta.env.VITE_DEMO_MODE === 'true';
 
 export const api = Axios.create({
   baseURL: env.API_URL,
-  adapter: demoMode ? async (config) => {
-    // Mock responses for demo mode
-    if (config.url === '/auth/me') {
-      return {
-        data: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config,
-      };
-    }
-    if (config.url?.startsWith('/users')) {
-      return {
-        data: [{ id: 1, name: 'Cliente Fake' }],
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config,
-      };
-    }
-    if (config.url?.startsWith('/discussions')) {
-      return {
-        data: [],
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config,
-      };
-    }
-    if (config.url?.startsWith('/comments')) {
-      return {
-        data: [],
-        status: 200,
-        statusText: 'OK',
-        headers: {},
-        config,
-      };
-    }
-    return {
-      data: { success: true },
-      status: 200,
-      statusText: 'OK',
-      headers: {},
-      config,
-    };
-  } : undefined,
+  adapter: demoMode
+    ? async (config) => {
+        if (config.url === '/auth/me') {
+          return {
+            data: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        }
+        if (config.url?.startsWith('/users')) {
+          return {
+            data: [{ id: 1, name: 'Cliente Fake' }],
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        }
+        if (config.url?.startsWith('/discussions')) {
+          return {
+            data: [],
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        }
+        if (config.url?.startsWith('/comments')) {
+          return {
+            data: [],
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        }
+        return {
+          data: { success: true },
+          status: 200,
+          statusText: 'OK',
+          headers: {},
+          config,
+        };
+      }
+    : undefined,
 });
 
 api.interceptors.request.use(authRequestInterceptor);
