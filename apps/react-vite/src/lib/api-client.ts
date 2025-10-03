@@ -1,114 +1,201 @@
-import axios from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
-const demoMode = import.meta.env.VITE_DEMO_MODE === 'true';
+const DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
 
-// Mock data com tipos corretos
-const mockUser = {
-  id: '1',
-  firstName: 'Usuário',
-  lastName: 'Demo',
-  email: 'demo@digest.com',
-  role: 'USER' as const,
-  teamId: '1',
-  bio: 'Usuário de demonstração',
-  createdAt: Date.now(),
+type User = { id: number; name: string; email?: string };
+type Team = { id: number; name: string };
+type Discussion = {
+  id: number;
+  title: string;
+  content?: string;
+  body?: string;
+  teamId?: string;
+  author: User;
+  createdAt?: string;
+};
+type Comment = {
+  id: number;
+  body?: string;
+  content?: string;
+  discussionId?: string;
+  author: User;
+  createdAt: string;
+};
+type Meta = { page: number; perPage: number; total: number };
+type AuthResponse = { jwt: string; user: User };
+
+type Http = {
+  get<T = any>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>>;
+  post<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>>;
+  patch<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>>;
+  delete<T = any>(
+    url: string,
+    config?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<T>>;
 };
 
-const mockTeam = {
-  id: '1',
-  name: 'Equipe Demo',
-  description: 'Equipe de demonstração',
-  createdAt: Date.now(),
-};
+function ok<T>(data: T, status = 200): AxiosResponse<T> {
+  return {
+    data,
+    status,
+    statusText: 'OK',
+    headers: {},
+    config: {} as any,
+  };
+}
 
-const mockDiscussion = {
-  id: '1',
-  title: 'Discussão Demo',
-  body: 'Esta é uma discussão de exemplo para demonstração.',
-  teamId: '1',
-  author: mockUser,
-  createdAt: Date.now(),
-};
+const demoHttp: Http = {
+  async get<T = any>(url: string): Promise<AxiosResponse<T>> {
+    const path = url.split('?')[0];
 
-const mockComment = {
-  id: '1',
-  body: 'Comentário de exemplo para demonstração.',
-  discussionId: '1',
-  author: mockUser,
-  createdAt: Date.now(),
-};
-
-export const api = demoMode
-  ? {
-      get: async (url: string) => {
-        if (url === '/auth/me') {
-          return {
-            data: {
-              jwt: 'demo-token',
-              user: mockUser,
-            },
-          };
-        }
-        if (url === '/users') {
-          return {
-            data: [mockUser],
-          };
-        }
-        if (url === '/discussions') {
-          return {
-            data: [mockDiscussion],
-            meta: {
-              page: 1,
-              total: 1,
-              totalPages: 1,
-            },
-          };
-        }
-        if (url === '/comments') {
-          return {
-            data: [mockComment],
-            meta: {
-              page: 1,
-              total: 1,
-              totalPages: 1,
-            },
-          };
-        }
-        if (url.startsWith('/discussions/')) {
-          return {
-            data: mockDiscussion,
-          };
-        }
-        if (url === '/teams') {
-          return {
-            data: [mockTeam],
-          };
-        }
-        return { data: {} };
-      },
-      post: async (url: string) => {
-        if (url === '/auth/login') {
-          return {
-            data: {
-              jwt: 'demo-token',
-              user: mockUser,
-            },
-          };
-        }
-        if (url === '/auth/logout') {
-          return { data: { success: true } };
-        }
-        if (url === '/discussions') {
-          return { data: mockDiscussion };
-        }
-        if (url === '/comments') {
-          return { data: mockComment };
-        }
-        return { data: { success: true } };
-      },
-      patch: async () => ({ data: mockDiscussion }),
-      delete: async () => ({ data: { success: true } }),
+    if (path === '/auth/me') {
+      const payload: AuthResponse = {
+        jwt: 'demo-token',
+        user: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+      };
+      return ok(payload as T);
     }
+
+    if (path === '/users') {
+      const payload: { data: User[] } = {
+        data: [
+          { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+          { id: 2, name: 'Cliente Teste', email: 'cliente@teste.com' },
+        ],
+      };
+      return ok(payload as T);
+    }
+
+    if (path === '/teams') {
+      const payload: { data: Team[] } = {
+        data: [
+          { id: 1, name: 'Time A' },
+          { id: 2, name: 'Time B' },
+        ],
+      };
+      return ok(payload as T);
+    }
+
+    if (path === '/discussions') {
+      const payload: { data: Discussion[]; meta: Meta } = {
+        data: [
+          {
+            id: 1,
+            title: 'Discussão Demo',
+            content: 'Conteúdo de exemplo para demo.',
+            author: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+            createdAt: new Date().toISOString(),
+          },
+        ],
+        meta: { page: 1, perPage: 10, total: 1 },
+      };
+      return ok(payload as T);
+    }
+
+    if (path.startsWith('/discussions/')) {
+      const id = Number(path.split('/')[2] || 1);
+      const payload: { data: Discussion } = {
+        data: {
+          id,
+          title: `Discussão Demo #${id}`,
+          content: 'Detalhe da discussão demo.',
+          author: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+          createdAt: new Date().toISOString(),
+        },
+      };
+      return ok(payload as T);
+    }
+
+    if (path === '/comments') {
+      const payload: { data: Comment[]; meta: Meta } = {
+        data: [
+          {
+            id: 1,
+            content: 'Comentário de exemplo',
+            author: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+            createdAt: new Date().toISOString(),
+          },
+        ],
+        meta: { page: 1, perPage: 10, total: 1 },
+      };
+      return ok(payload as T);
+    }
+
+    return ok({} as T);
+  },
+
+  async post<T = any>(url: string, data?: any): Promise<AxiosResponse<T>> {
+    const path = url.split('?')[0];
+
+    if (path === '/auth/login') {
+      const payload: AuthResponse = {
+        jwt: 'demo-token',
+        user: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+      };
+      return ok(payload as T);
+    }
+
+    if (path === '/discussions') {
+      const payload: Discussion = {
+        id: Math.floor(Math.random() * 10000),
+        title: data?.title ?? 'Nova discussão demo',
+        body: data?.body ?? 'Corpo da discussão',
+        author: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+        createdAt: new Date().toISOString(),
+      };
+      return ok(payload as T, 201);
+    }
+
+    if (path === '/comments') {
+      const payload: Comment = {
+        id: Math.floor(Math.random() * 10000),
+        content: data?.content ?? data?.body ?? 'Comentário demo',
+        discussionId: data?.discussionId?.toString?.() ?? '1',
+        author: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+        createdAt: new Date().toISOString(),
+      };
+      return ok(payload as T, 201);
+    }
+
+    return ok({ success: true } as T, 201);
+  },
+
+  async patch<T = any>(url: string, data?: any): Promise<AxiosResponse<T>> {
+    const path = url.split('?')[0];
+
+    if (path.startsWith('/discussions/')) {
+      const id = Number(path.split('/')[2] || 1);
+      const payload: Discussion = {
+        id,
+        title: data?.title ?? `Discussão Demo #${id}`,
+        body: data?.body ?? 'Corpo atualizado (demo)',
+        author: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+        createdAt: new Date().toISOString(),
+      };
+      return ok(payload as T);
+    }
+
+    return ok({ success: true } as T);
+  },
+
+  async delete<T = any>(): Promise<AxiosResponse<T>> {
+    return ok({ success: true } as T);
+  },
+};
+
+export const api: AxiosInstance | Http = DEMO
+  ? demoHttp
   : axios.create({
       baseURL: import.meta.env.VITE_APP_API_URL,
       withCredentials: true,
