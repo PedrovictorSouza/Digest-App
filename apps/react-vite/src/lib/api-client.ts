@@ -2,11 +2,9 @@ import axios from 'axios';
 
 const demoMode = import.meta.env.VITE_DEMO_MODE === 'true';
 
-type FakeResponse<T> = Promise<{ data: T }>;
-
 export const api = demoMode
   ? {
-      get: async (url: string): FakeResponse<any> => {
+      get: async (url: string) => {
         if (url === '/auth/me') {
           return {
             data: {
@@ -50,7 +48,17 @@ export const api = demoMode
         }
         return { data: {} };
       },
-      post: async () => ({ data: { success: true } }),
+      post: async (url: string) => {
+        if (url === '/auth/login') {
+          return {
+            data: {
+              jwt: 'demo-token',
+              user: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+            },
+          };
+        }
+        return { data: { success: true } };
+      },
       patch: async () => ({ data: { success: true } }),
       delete: async () => ({ data: { success: true } }),
     }
