@@ -13,9 +13,24 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
   return config;
 }
 
-export const api = Axios.create({
-  baseURL: env.API_URL,
-});
+const demoMode = import.meta.env.VITE_DEMO_MODE === 'true';
+
+export const api = demoMode
+  ? {
+      get: async (url: string) => {
+        if (url === '/auth/me') return { data: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' } };
+        if (url.startsWith('/users')) return { data: [{ id: 1, name: 'Cliente Fake' }] };
+        if (url.startsWith('/discussions')) return { data: [] };
+        if (url.startsWith('/comments')) return { data: [] };
+        return { data: {} };
+      },
+      post: async () => ({ data: { success: true } }),
+      patch: async () => ({ data: { success: true } }),
+      delete: async () => ({ data: { success: true } }),
+    }
+  : Axios.create({
+      baseURL: env.API_URL,
+    });
 
 api.interceptors.request.use(authRequestInterceptor);
 api.interceptors.response.use(
