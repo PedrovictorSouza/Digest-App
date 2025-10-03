@@ -21,7 +21,31 @@ export const api = Axios.create({
     ? async (config) => {
         if (config.url === '/auth/me') {
           return {
-            data: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+            data: { 
+              jwt: 'demo-token', 
+              user: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' } 
+            },
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        }
+        if (config.url?.startsWith('/auth/login')) {
+          return {
+            data: { 
+              jwt: 'demo-token', 
+              user: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' } 
+            },
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        }
+        if (config.url?.startsWith('/auth/logout')) {
+          return {
+            data: { success: true },
             status: 200,
             statusText: 'OK',
             headers: {},
@@ -30,7 +54,10 @@ export const api = Axios.create({
         }
         if (config.url?.startsWith('/users')) {
           return {
-            data: [{ id: 1, name: 'Cliente Fake' }],
+            data: [
+              { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+              { id: 2, name: 'Cliente Teste', email: 'cliente@teste.com' }
+            ],
             status: 200,
             statusText: 'OK',
             headers: {},
@@ -39,7 +66,15 @@ export const api = Axios.create({
         }
         if (config.url?.startsWith('/discussions')) {
           return {
-            data: [],
+            data: [
+              { 
+                id: 1, 
+                title: 'Discussão Demo', 
+                content: 'Esta é uma discussão de exemplo para demonstração.',
+                author: { id: 1, name: 'Usuário Demo' },
+                createdAt: new Date().toISOString()
+              }
+            ],
             status: 200,
             statusText: 'OK',
             headers: {},
@@ -48,7 +83,14 @@ export const api = Axios.create({
         }
         if (config.url?.startsWith('/comments')) {
           return {
-            data: [],
+            data: [
+              {
+                id: 1,
+                content: 'Comentário de exemplo para demonstração.',
+                author: { id: 1, name: 'Usuário Demo' },
+                createdAt: new Date().toISOString()
+              }
+            ],
             status: 200,
             statusText: 'OK',
             headers: {},
