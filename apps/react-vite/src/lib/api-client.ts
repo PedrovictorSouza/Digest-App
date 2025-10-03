@@ -194,8 +194,8 @@ const demoHttp: Http = {
   },
 };
 
-export const api: AxiosInstance | Http = DEMO
-  ? demoHttp
+export const api = DEMO
+  ? (demoHttp as any as AxiosInstance)
   : axios.create({
       baseURL: import.meta.env.VITE_APP_API_URL,
       withCredentials: true,
