@@ -15,22 +15,55 @@ function authRequestInterceptor(config: InternalAxiosRequestConfig) {
 
 const demoMode = import.meta.env.VITE_DEMO_MODE === 'true';
 
-export const api = demoMode
-  ? {
-      get: async (url: string) => {
-        if (url === '/auth/me') return { data: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' } };
-        if (url.startsWith('/users')) return { data: [{ id: 1, name: 'Cliente Fake' }] };
-        if (url.startsWith('/discussions')) return { data: [] };
-        if (url.startsWith('/comments')) return { data: [] };
-        return { data: {} };
-      },
-      post: async () => ({ data: { success: true } }),
-      patch: async () => ({ data: { success: true } }),
-      delete: async () => ({ data: { success: true } }),
+export const api = Axios.create({
+  baseURL: env.API_URL,
+  adapter: demoMode ? async (config) => {
+    // Mock responses for demo mode
+    if (config.url === '/auth/me') {
+      return {
+        data: { id: 1, name: 'Usuário Demo', email: 'demo@digest.com' },
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config,
+      };
     }
-  : Axios.create({
-      baseURL: env.API_URL,
-    });
+    if (config.url?.startsWith('/users')) {
+      return {
+        data: [{ id: 1, name: 'Cliente Fake' }],
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config,
+      };
+    }
+    if (config.url?.startsWith('/discussions')) {
+      return {
+        data: [],
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config,
+      };
+    }
+    if (config.url?.startsWith('/comments')) {
+      return {
+        data: [],
+        status: 200,
+        statusText: 'OK',
+        headers: {},
+        config,
+      };
+    }
+    return {
+      data: { success: true },
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config,
+    };
+  } : undefined,
+});
 
 api.interceptors.request.use(authRequestInterceptor);
 api.interceptors.response.use(
