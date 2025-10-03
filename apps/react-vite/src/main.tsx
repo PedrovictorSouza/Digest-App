@@ -8,10 +8,16 @@ import { enableMocking } from './testing/mocks';
 const root = document.getElementById('root');
 if (!root) throw new Error('No root element found');
 
-enableMocking().then(() => {
+const startApp = async () => {
+  if (import.meta.env.VITE_APP_ENABLE_API_MOCKING === 'true') {
+    await enableMocking();
+  }
+  
   createRoot(root).render(
     <React.StrictMode>
       <App />
     </React.StrictMode>,
   );
-});
+};
+
+startApp();
