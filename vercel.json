@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "cd apps/react-vite && npm install && npm run build",
+  "buildCommand": "cd apps/react-vite && yarn install && yarn build",
   "outputDirectory": "apps/react-vite/dist",
-  "installCommand": "cd apps/react-vite && npm install",
+  "installCommand": "cd apps/react-vite && yarn install",
   "framework": null,
   "functions": {},
   "rewrites": [
