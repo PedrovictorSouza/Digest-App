@@ -40,12 +40,14 @@ const LandingRoute = () => {
     <div className="flex flex-col" style={{ height: '100vh', maxHeight: '100vh' }}>
       <div
         className="flex-1 overflow-y-auto"
-        style={{ backgroundColor: '#f4f4f4' }}
+        style={{ backgroundColor: '#f4f4f4', paddingBottom: '80px' }}
       >
         {renderPage()}
       </div>
       {showFooter && (
-        <Footer activeTab={activeTab} onTabChange={handleTabChange} />
+        <div className="fixed bottom-0 left-0 right-0 z-50">
+          <Footer activeTab={activeTab} onTabChange={handleTabChange} />
+        </div>
       )}
     </div>
   );
