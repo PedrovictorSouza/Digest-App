@@ -15,7 +15,7 @@ type MealsListProps = {
 
 export const MealsList = ({ meals, onEvaluate }: MealsListProps) => {
   return (
-    <div className="mb-8">
+    <div className="mb-4">
       {meals.map((meal) => (
         <MealCard key={meal.id} meal={meal} onEvaluate={onEvaluate} />
       ))}

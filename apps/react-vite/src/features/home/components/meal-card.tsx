@@ -44,7 +44,7 @@ type MealCardProps = {
 export const MealCard = ({ meal, onEvaluate }: MealCardProps) => {
   return (
     <div
-      className={`mb-5 rounded-2xl border border-[#cfddd2] p-5 shadow-sm ${
+      className={`mb-3 rounded-2xl border border-[#cfddd2] p-4 shadow-sm ${
         meal.status === 'completed'
           ? 'border-green-200 bg-green-50'
           : 'bg-gray-50'

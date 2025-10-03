@@ -106,7 +106,7 @@ export const Footer = ({ activeTab = 'home', onTabChange }: FooterProps) => {
   return (
     <div
       data-testid="footer"
-      className="flex h-20 w-full items-center justify-around border-t bg-white px-24 py-3"
+      className="flex h-20 w-full items-center justify-around border-t bg-white px-4 py-3"
     >
       {tabs.map((tab) => {
         const isActive = activeTab === tab.id;

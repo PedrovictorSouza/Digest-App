@@ -39,7 +39,7 @@ const LandingRoute = () => {
   return (
     <div className="flex h-screen flex-col">
       <div
-        className="flex-1 overflow-y-auto"
+        className="flex-1 overflow-y-auto pb-20"
         style={{ backgroundColor: '#f4f4f4' }}
       >
         {renderPage()}
