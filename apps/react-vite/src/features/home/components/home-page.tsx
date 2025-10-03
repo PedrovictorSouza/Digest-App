@@ -93,7 +93,7 @@ export const HomePage = ({ onViewChange }: HomePageProps = {}) => {
 
   return (
     <>
-      <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
+      <div className="px-4 py-4 pb-20" style={{ backgroundColor: '#f4f4f4', minHeight: 'calc(100vh - 80px)' }}>
         <HomeHeader />
         <DateDisplay />
         <MealsList meals={meals} onEvaluate={handleEvaluate} />
