@@ -4,7 +4,6 @@
   "outputDirectory": "apps/react-vite/dist",
   "installCommand": "cd apps/react-vite && yarn install",
   "framework": null,
-  "functions": {},
   "rewrites": [
     {
       "source": "/(.*)",
