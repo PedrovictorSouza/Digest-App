@@ -10,7 +10,7 @@ export const ProfilePage = () => {
   };
 
   return (
-    <div className="px-24 py-6" style={{ backgroundColor: '#f4f4f4' }}>
+    <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
       <ProfileHeader />
       <AchievementsCard />
       <ProfileMenu />
