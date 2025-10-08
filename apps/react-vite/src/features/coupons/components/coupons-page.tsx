@@ -1,3 +1,5 @@
+import { BackButton } from '@/features/meal-evaluation';
+
 import { CouponsHeader } from './coupons-header';
 import { CouponsList } from './coupons-list';
 import { CouponsSummary } from './coupons-summary';
@@ -41,9 +43,14 @@ const mockCoupons: Coupon[] = [
   },
 ];
 
-export const CouponsPage = () => {
+type CouponsPageProps = {
+  onBack?: () => void;
+};
+
+export const CouponsPage = ({ onBack }: CouponsPageProps = {}) => {
   return (
     <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
+      {onBack && <BackButton onBack={onBack} />}
       <CouponsHeader />
       <CouponsSummary />
       <CouponsList coupons={mockCoupons} />

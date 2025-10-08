@@ -1,3 +1,8 @@
+import { useMemo } from 'react';
+
+import { BackButton } from '@/features/meal-evaluation';
+import { useGetEvaluations } from '@/features/meal-evaluation/api/get-evaluations';
+
 import { EncouragementBanner } from './encouragement-banner';
 import { MealAverages } from './meal-averages';
 import { ReportHeader } from './report-header';
@@ -17,11 +22,11 @@ type Insight = {
   trend: 'up' | 'down' | 'stable';
 };
 
-const mockMealAverages: MealAverage[] = [
-  { name: 'Café da Manhã', nutrition: 3.2, satisfaction: 2.8 },
-  { name: 'Almoço', nutrition: 3.8, satisfaction: 4.1 },
-  { name: 'Jantar', nutrition: 3.5, satisfaction: 4.5 },
-];
+const MEAL_NAMES: Record<string, string> = {
+  '1': 'Café da Manhã',
+  '2': 'Almoço',
+  '3': 'Jantar',
+};
 
 const mockInsights: Insight[] = [
   {
@@ -44,13 +49,51 @@ const mockInsights: Insight[] = [
   },
 ];
 
-export const ReportsPage = () => {
+type ReportsPageProps = {
+  onBack?: () => void;
+};
+
+export const ReportsPage = ({ onBack }: ReportsPageProps = {}) => {
+  const { data: evaluations = [], isLoading } = useGetEvaluations();
+
+  const mealAverages = useMemo(() => {
+    if (!evaluations.length) return [];
+
+    const mealGroups = evaluations.reduce((acc, evaluation) => {
+      if (!acc[evaluation.mealId]) {
+        acc[evaluation.mealId] = [];
+      }
+      acc[evaluation.mealId].push(evaluation);
+      return acc;
+    }, {} as Record<string, typeof evaluations>);
+
+    return Object.entries(mealGroups).map(([mealId, evals]) => {
+      const totalNutrition = evals.reduce((sum, e) => sum + e.nutrition, 0);
+      const totalSatisfaction = evals.reduce((sum, e) => sum + e.satisfaction, 0);
+      
+      return {
+        name: MEAL_NAMES[mealId] || `Refeição ${mealId}`,
+        nutrition: Number((totalNutrition / evals.length).toFixed(1)),
+        satisfaction: Number((totalSatisfaction / evals.length).toFixed(1)),
+      };
+    });
+  }, [evaluations]);
+
+  if (isLoading) {
+    return (
+      <div className="px-4 py-4 flex items-center justify-center h-screen" style={{ backgroundColor: '#f4f4f4' }}>
+        <p className="text-gray-500">Carregando relatórios...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
+      {onBack && <BackButton onBack={onBack} />}
       <ReportHeader />
       <WeeklySummary />
       <WeeklyInsights insights={mockInsights} />
-      <MealAverages averages={mockMealAverages} />
+      <MealAverages averages={mealAverages} />
       <EncouragementBanner />
     </div>
   );

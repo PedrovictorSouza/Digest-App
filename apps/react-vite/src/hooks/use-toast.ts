@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 type ToastState = {
   isVisible: boolean;
@@ -11,13 +11,13 @@ export const useToast = () => {
     message: '',
   });
 
-  const showToast = (message: string) => {
+  const showToast = useCallback((message: string) => {
     setToast({ isVisible: true, message });
-  };
+  }, []);
 
-  const hideToast = () => {
+  const hideToast = useCallback(() => {
     setToast((prev) => ({ ...prev, isVisible: false }));
-  };
+  }, []);
 
   return {
     toast,

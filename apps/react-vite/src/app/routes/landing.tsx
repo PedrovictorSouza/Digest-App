@@ -17,6 +17,10 @@ const LandingRoute = () => {
     setShowFooter(true);
   };
 
+  const handleBackToHome = () => {
+    setActiveTab('home');
+  };
+
   const renderPage = () => {
     switch (activeTab) {
       case 'home':
@@ -24,11 +28,11 @@ const LandingRoute = () => {
           <HomePage onViewChange={(view) => setShowFooter(view === 'home')} />
         );
       case 'reports':
-        return <ReportsPage />;
+        return <ReportsPage onBack={handleBackToHome} />;
       case 'coupons':
-        return <CouponsPage />;
+        return <CouponsPage onBack={handleBackToHome} />;
       case 'profile':
-        return <ProfilePage />;
+        return <ProfilePage onBack={handleBackToHome} />;
       default:
         return (
           <HomePage onViewChange={(view) => setShowFooter(view === 'home')} />

@@ -88,33 +88,33 @@ export const HomePage = ({ onViewChange }: HomePageProps = {}) => {
               ),
             );
             handleBack();
-            showToast('Avaliação feita com sucesso');
+            setTimeout(() => {
+              showToast('Avaliação feita com sucesso!');
+            }, 100);
           },
         },
       );
     }
   };
 
-  if (currentView === 'evaluation' && selectedMeal) {
-    return (
-      <MealEvaluationPage
-        mealName={selectedMeal.name}
-        mealIcon={selectedMeal.icon}
-        onBack={handleBack}
-        onSave={handleSaveEvaluation}
-        isPending={isPending}
-      />
-    );
-  }
-
   return (
     <>
-      <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
-        <HomeHeader />
-        <DateDisplay />
-        <MealsList meals={meals} onEvaluate={handleEvaluate} />
-        <MotivationalBanner />
-      </div>
+      {currentView === 'evaluation' && selectedMeal ? (
+        <MealEvaluationPage
+          mealName={selectedMeal.name}
+          mealIcon={selectedMeal.icon}
+          onBack={handleBack}
+          onSave={handleSaveEvaluation}
+          isPending={isPending}
+        />
+      ) : (
+        <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
+          <HomeHeader />
+          <DateDisplay />
+          <MealsList meals={meals} onEvaluate={handleEvaluate} />
+          <MotivationalBanner />
+        </div>
+      )}
 
       <Toast
         message={toast.message}

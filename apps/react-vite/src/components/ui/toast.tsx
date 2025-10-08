@@ -13,26 +13,28 @@ export const Toast = ({
   onClose,
   duration = 3000,
 }: ToastProps) => {
-  const [shouldRender, setShouldRender] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (isVisible) {
-      setShouldRender(true);
+      setShow(true);
       const timer = setTimeout(() => {
-        setShouldRender(false);
+        setShow(false);
         setTimeout(onClose, 300);
       }, duration);
 
       return () => clearTimeout(timer);
+    } else {
+      setShow(false);
     }
   }, [isVisible, duration, onClose]);
 
-  if (!shouldRender) return null;
+  if (!isVisible && !show) return null;
 
   return (
     <div
-      className={`fixed bottom-6 right-6 z-50 transition-all duration-300 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+      className={`fixed bottom-24 left-1/2 -translate-x-1/2 z-[100] transition-all duration-300 ${
+        show ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
       }`}
     >
       <div className="bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg flex items-center space-x-3">
