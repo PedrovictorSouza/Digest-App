@@ -10,6 +10,7 @@ type MealEvaluationPageProps = {
   mealIcon: string;
   onBack: () => void;
   onSave: (nutrition: number, satisfaction: number) => void;
+  isPending?: boolean;
 };
 
 export const MealEvaluationPage = ({
@@ -17,6 +18,7 @@ export const MealEvaluationPage = ({
   mealIcon,
   onBack,
   onSave,
+  isPending = false,
 }: MealEvaluationPageProps) => {
   const [nutrition, setNutrition] = useState<number | null>(null);
   const [satisfaction, setSatisfaction] = useState<number | null>(null);
@@ -39,6 +41,7 @@ export const MealEvaluationPage = ({
         question="Como você avalia a qualidade nutricional desta refeição?"
         value={nutrition}
         onChange={setNutrition}
+        isPending={isPending}
       />
 
       <EvaluationCard
@@ -46,9 +49,14 @@ export const MealEvaluationPage = ({
         question="O quanto você se sentiu satisfeito(a) com esta refeição?"
         value={satisfaction}
         onChange={setSatisfaction}
+        isPending={isPending}
       />
 
-      <SaveButton isEnabled={isEnabled} onSave={handleSave} />
+      <SaveButton
+        isEnabled={isEnabled}
+        onSave={handleSave}
+        isPending={isPending}
+      />
     </div>
   );
 };

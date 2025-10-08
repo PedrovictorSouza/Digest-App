@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Toast } from '@/components/ui/toast';
+import { useCreateEvaluation } from '@/features/meal-evaluation/api/create-evaluation';
 import { MealEvaluationPage } from '@/features/meal-evaluation';
 import { useToast } from '@/hooks/use-toast';
 
@@ -15,6 +16,7 @@ type Meal = {
   time: string;
   icon: string;
   status: 'pending' | 'completed';
+  items?: string[];
 };
 
 const initialMeals: Meal[] = [
@@ -31,6 +33,7 @@ const initialMeals: Meal[] = [
     time: '12:30',
     icon: '☀️',
     status: 'pending',
+    items: [],
   },
   {
     id: '3',
@@ -50,6 +53,7 @@ export const HomePage = ({ onViewChange }: HomePageProps = {}) => {
   const [currentView, setCurrentView] = useState<'home' | 'evaluation'>('home');
   const [selectedMeal, setSelectedMeal] = useState<Meal | null>(null);
   const { toast, showToast, hideToast } = useToast();
+  const { mutate: createEvaluation, isPending } = useCreateEvaluation();
 
   const handleEvaluate = (mealId: string) => {
     const meal = meals.find((m) => m.id === mealId);
@@ -66,17 +70,28 @@ export const HomePage = ({ onViewChange }: HomePageProps = {}) => {
     onViewChange?.('home');
   };
 
-  const handleSaveEvaluation = () => {
+  const handleSaveEvaluation = (nutrition: number, satisfaction: number) => {
     if (selectedMeal) {
-      setMeals(
-        meals.map((meal) =>
-          meal.id === selectedMeal.id
-            ? { ...meal, status: 'completed' as const }
-            : meal,
-        ),
+      createEvaluation(
+        {
+          mealId: selectedMeal.id,
+          nutrition,
+          satisfaction,
+        },
+        {
+          onSuccess: () => {
+            setMeals(
+              meals.map((meal) =>
+                meal.id === selectedMeal.id
+                  ? { ...meal, status: 'completed' as const }
+                  : meal,
+              ),
+            );
+            handleBack();
+            showToast('Avaliação feita com sucesso');
+          },
+        },
       );
-      handleBack();
-      showToast('Avaliação feita com sucesso');
     }
   };
 
@@ -87,6 +102,7 @@ export const HomePage = ({ onViewChange }: HomePageProps = {}) => {
         mealIcon={selectedMeal.icon}
         onBack={handleBack}
         onSave={handleSaveEvaluation}
+        isPending={isPending}
       />
     );
   }

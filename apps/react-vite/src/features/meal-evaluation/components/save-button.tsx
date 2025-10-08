@@ -1,21 +1,29 @@
 type SaveButtonProps = {
   isEnabled: boolean;
   onSave: () => void;
+  isPending?: boolean;
 };
 
-export const SaveButton = ({ isEnabled, onSave }: SaveButtonProps) => {
+export const SaveButton = ({
+  isEnabled,
+  onSave,
+  isPending = false,
+}: SaveButtonProps) => {
+  const canSave = isEnabled && !isPending;
+
   return (
     <div className="text-center">
       <button
         onClick={onSave}
-        disabled={!isEnabled}
-        className={`w-full py-4 px-6 rounded-lg font-bold text-white transition-all ${
-          isEnabled
-            ? 'bg-teal-500 hover:bg-teal-600 active:scale-95'
-            : 'bg-gray-300 cursor-not-allowed opacity-50'
+        disabled={!canSave}
+        data-pending={isPending}
+        className={`w-full rounded-lg px-6 py-4 font-bold text-white transition-all ${
+          canSave
+            ? 'active:scale-95 bg-teal-500 hover:bg-teal-600'
+            : 'cursor-not-allowed bg-gray-300 opacity-50'
         }`}
       >
-        Salvar Avaliação
+        {isPending ? 'Salvando...' : 'Salvar Avaliação'}
       </button>
 
       <p className="text-gray-400 text-sm mt-3">

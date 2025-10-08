@@ -4,7 +4,6 @@ import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 
 import { paths } from '@/config/paths';
-import { ProtectedRoute } from '@/lib/auth';
 
 import {
   default as AppRoot,
@@ -45,11 +44,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
     },
     {
       path: paths.app.root.path,
-      element: (
-        <ProtectedRoute>
-          <AppRoot />
-        </ProtectedRoute>
-      ),
+      element: <AppRoot />,
       ErrorBoundary: AppRootErrorBoundary,
       children: [
         {

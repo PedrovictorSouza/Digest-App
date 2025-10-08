@@ -37,6 +37,7 @@ type MealCardProps = {
     time: string;
     icon: string;
     status: 'pending' | 'completed';
+    items?: string[];
   };
   onEvaluate: (mealId: string) => void;
 };
