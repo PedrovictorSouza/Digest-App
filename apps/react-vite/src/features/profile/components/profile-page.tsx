@@ -1,5 +1,3 @@
-import { BackButton } from '@/features/meal-evaluation';
-
 import { AccountInfo } from './account-info';
 import { AchievementsCard } from './achievements-card';
 import { LogoutButton } from './logout-button';
@@ -17,8 +15,7 @@ export const ProfilePage = ({ onBack }: ProfilePageProps = {}) => {
 
   return (
     <div className="px-4 py-4" style={{ backgroundColor: '#f4f4f4' }}>
-      {onBack && <BackButton onBack={onBack} />}
-      <ProfileHeader />
+      <ProfileHeader onBack={onBack} />
       <AchievementsCard />
       <ProfileMenu />
       <AccountInfo />
