@@ -26,8 +26,9 @@ export const loginInputSchema = z.object({
 });
 
 export type LoginInput = z.infer<typeof loginInputSchema>;
-const loginWithEmailAndPassword = (data: LoginInput): Promise<AuthResponse> => {
-  return api.post('/auth/login', data);
+const loginWithEmailAndPassword = async (data: LoginInput) => {
+  const response = await api.post('/auth/login', data);
+  return response.data;
 };
 
 export const registerInputSchema = z.object({
@@ -39,10 +40,9 @@ export const registerInputSchema = z.object({
 
 export type RegisterInput = z.infer<typeof registerInputSchema>;
 
-const registerWithEmailAndPassword = (
-  data: RegisterInput,
-): Promise<AuthResponse> => {
-  return api.post('/auth/register', data);
+const registerWithEmailAndPassword = async (data: RegisterInput) => {
+  const response = await api.post('/auth/register', data);
+  return response.data;
 };
 
 const authConfig = {

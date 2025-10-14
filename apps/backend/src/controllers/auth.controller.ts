@@ -24,6 +24,13 @@ export const register = async (req: Request, res: Response) => {
     await user.save();
 
     req.session.userId = String(user._id);
+    
+    await new Promise<void>((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
 
     res.status(201).json({
       user: {
@@ -59,6 +66,13 @@ export const login = async (req: Request, res: Response) => {
     }
 
     req.session.userId = String(user._id);
+    
+    await new Promise<void>((resolve, reject) => {
+      req.session.save((err) => {
+        if (err) reject(err);
+        else resolve();
+      });
+    });
 
     res.json({
       user: {
