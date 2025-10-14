@@ -9,7 +9,7 @@ import { connectDatabase } from './config/database';
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || process.env.RAILWAY_PORT || 8000;
 
 app.use(cors({
   origin: (origin, callback) => {
@@ -61,6 +61,8 @@ const startServer = async () => {
     console.log('🔧 Starting server...');
     console.log('📋 Environment variables:');
     console.log(`  - PORT: ${process.env.PORT}`);
+    console.log(`  - RAILWAY_PORT: ${process.env.RAILWAY_PORT}`);
+    console.log(`  - FINAL_PORT: ${PORT}`);
     console.log(`  - NODE_ENV: ${process.env.NODE_ENV}`);
     console.log(`  - MONGODB_URI: ${process.env.MONGODB_URI ? 'SET' : 'NOT SET'}`);
     console.log(`  - SESSION_SECRET: ${process.env.SESSION_SECRET ? 'SET' : 'NOT SET'}`);
