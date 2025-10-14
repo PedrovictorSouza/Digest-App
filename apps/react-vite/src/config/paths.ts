@@ -17,6 +17,11 @@ export const paths = {
     },
   },
 
+  dashboard: {
+    path: '/dashboard',
+    getHref: () => '/dashboard',
+  },
+
   settings: {
     path: '/settings',
     getHref: () => '/settings',

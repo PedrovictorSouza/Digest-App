@@ -1,4 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import { env } from '@/config/env';
 
 const DEMO = import.meta.env.VITE_DEMO_MODE === 'true';
 
@@ -197,7 +198,7 @@ const demoHttp: Http = {
 export const api = DEMO
   ? (demoHttp as any as AxiosInstance)
   : axios.create({
-      baseURL: import.meta.env.VITE_APP_API_URL,
+      baseURL: env.API_URL,
       withCredentials: true,
       headers: { Accept: 'application/json' },
     });

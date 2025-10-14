@@ -6,6 +6,10 @@
     "dev": "nodemon --exec ts-node src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "create-test-user": "ts-node src/scripts/create-test-user.ts",
     "view-data": "ts-node src/scripts/view-data.ts",
     "watch-data": "ts-node src/scripts/watch-data.ts",
     "show-structure": "ts-node src/scripts/show-structure.ts"
@@ -15,17 +19,27 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "mongoose": "^8.19.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/jest": "^30.0.0",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^24.7.0",
+    "@types/supertest": "^6.0.3",
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.2.3",
     "nodemon": "^3.1.10",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }

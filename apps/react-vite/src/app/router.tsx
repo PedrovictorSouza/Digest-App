@@ -1,9 +1,10 @@
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, Outlet } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 
 import { paths } from '@/config/paths';
+import { ProtectedRoute } from '@/lib/auth';
 
 import {
   default as AppRoot,
@@ -24,7 +25,7 @@ export const createAppRouter = (queryClient: QueryClient) =>
   createBrowserRouter([
     {
       path: paths.home.path,
-      lazy: () => import('./routes/landing').then(convert(queryClient)),
+      lazy: () => import('./routes/public-landing').then(convert(queryClient)),
     },
     {
       path: paths.auth.register.path,
@@ -35,16 +36,38 @@ export const createAppRouter = (queryClient: QueryClient) =>
       lazy: () => import('./routes/auth/login').then(convert(queryClient)),
     },
     {
+      path: '/dashboard',
+      element: <ProtectedRoute><Outlet /></ProtectedRoute>,
+      children: [
+        {
+          index: true,
+          lazy: () => import('./routes/dashboard').then(convert(queryClient)),
+        },
+      ],
+    },
+    {
       path: paths.settings.path,
-      lazy: () => import('./routes/settings').then(convert(queryClient)),
+      element: <ProtectedRoute><div /></ProtectedRoute>,
+      children: [
+        {
+          index: true,
+          lazy: () => import('./routes/settings').then(convert(queryClient)),
+        },
+      ],
     },
     {
       path: paths.profile.path,
-      lazy: () => import('./routes/profile').then(convert(queryClient)),
+      element: <ProtectedRoute><div /></ProtectedRoute>,
+      children: [
+        {
+          index: true,
+          lazy: () => import('./routes/profile').then(convert(queryClient)),
+        },
+      ],
     },
     {
       path: paths.app.root.path,
-      element: <AppRoot />,
+      element: <ProtectedRoute><AppRoot /></ProtectedRoute>,
       ErrorBoundary: AppRootErrorBoundary,
       children: [
         {

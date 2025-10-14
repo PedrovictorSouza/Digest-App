@@ -11,8 +11,8 @@ export const useCreateEvaluation = () => {
     mutationKey: ['meal-evaluations', 'create'],
     mutationFn: (data: Body) =>
       api.post<Resp>('/meal-evaluations', data).then((r) => r.data),
-    onSuccess: (_res, vars) => {
-      qc.invalidateQueries({ queryKey: ['meal-evaluations', vars.mealId] });
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ['meal-evaluations'] });
     },
   });
 };

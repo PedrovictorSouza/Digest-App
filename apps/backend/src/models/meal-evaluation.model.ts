@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IMealEvaluation extends Document {
+  userId: string;
   mealId: string;
   nutrition: number;
   satisfaction: number;
@@ -9,6 +10,11 @@ export interface IMealEvaluation extends Document {
 
 const MealEvaluationSchema = new Schema<IMealEvaluation>(
   {
+    userId: {
+      type: String,
+      required: true,
+      index: true
+    },
     mealId: {
       type: String,
       required: true,

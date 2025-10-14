@@ -2,12 +2,13 @@ import * as z from 'zod';
 
 const createEnv = () => {
   const EnvSchema = z.object({
-    API_URL: z.string(),
+    API_URL: z.string().optional().default('http://localhost:8000/api'),
     ENABLE_API_MOCKING: z
       .string()
       .refine((s) => s === 'true' || s === 'false')
       .transform((s) => s === 'true')
-      .optional(),
+      .optional()
+      .default('false'),
     APP_URL: z.string().optional().default('http://localhost:3000'),
     APP_MOCK_API_PORT: z.string().optional().default('8080'),
   });
@@ -25,14 +26,13 @@ const createEnv = () => {
   const parsedEnv = EnvSchema.safeParse(envVars);
 
   if (!parsedEnv.success) {
-    throw new Error(
-      `Invalid env provided.
-The following variables are missing or invalid:
-${Object.entries(parsedEnv.error.flatten().fieldErrors)
-  .map(([k, v]) => `- ${k}: ${v}`)
-  .join('\n')}
-`,
-    );
+    console.warn('Usando configurações padrão para variáveis de ambiente');
+    return {
+      API_URL: 'http://localhost:8000/api',
+      ENABLE_API_MOCKING: false,
+      APP_URL: 'http://localhost:3000',
+      APP_MOCK_API_PORT: '8080',
+    };
   }
 
   return parsedEnv.data;

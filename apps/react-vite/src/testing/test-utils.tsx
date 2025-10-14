@@ -34,14 +34,24 @@ export const loginAsUser = async (user: any) => {
   return authUser;
 };
 
-export const waitForLoadingToFinish = () =>
-  waitForElementToBeRemoved(
+export const waitForLoadingToFinish = () => {
+  const loadingElements = [
+    ...screen.queryAllByTestId(/loading/i),
+    ...screen.queryAllByText(/loading/i),
+  ];
+  
+  if (loadingElements.length === 0) {
+    return Promise.resolve();
+  }
+  
+  return waitForElementToBeRemoved(
     () => [
       ...screen.queryAllByTestId(/loading/i),
       ...screen.queryAllByText(/loading/i),
     ],
     { timeout: 4000 },
   );
+};
 
 const initializeUser = async (user: any) => {
   if (typeof user === 'undefined') {

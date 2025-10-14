@@ -4,6 +4,11 @@ import { MealEvaluation } from '../models/meal-evaluation.model';
 export const createMealEvaluation = async (req: Request, res: Response) => {
   try {
     const { mealId, nutrition, satisfaction } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+      return res.status(401).json({ message: 'Não autenticado' });
+    }
 
     if (!mealId || nutrition === undefined || satisfaction === undefined) {
       return res.status(400).json({ 
@@ -18,6 +23,7 @@ export const createMealEvaluation = async (req: Request, res: Response) => {
     }
 
     const evaluation = await MealEvaluation.create({
+      userId,
       mealId,
       nutrition,
       satisfaction
@@ -41,10 +47,18 @@ export const createMealEvaluation = async (req: Request, res: Response) => {
 export const getMealEvaluations = async (req: Request, res: Response) => {
   try {
     const { mealId } = req.query;
+    const userId = req.session.userId;
 
-    const evaluations = mealId 
-      ? await MealEvaluation.find({ mealId }).sort({ createdAt: -1 })
-      : await MealEvaluation.find().sort({ createdAt: -1 });
+    if (!userId) {
+      return res.status(401).json({ message: 'Não autenticado' });
+    }
+
+    const query: any = { userId };
+    if (mealId) {
+      query.mealId = mealId;
+    }
+
+    const evaluations = await MealEvaluation.find(query).sort({ createdAt: -1 });
 
     const formattedEvaluations = evaluations.map(e => ({
       id: e._id,
