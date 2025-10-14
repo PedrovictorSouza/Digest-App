@@ -57,12 +57,27 @@ app.use('/api/auth', authRoutes);
 app.use('/api/meal-evaluations', mealEvaluationsRoutes);
 
 const startServer = async () => {
-  await connectDatabase();
-  
-  app.listen(PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-    console.log(`📊 API available at http://localhost:${PORT}/api`);
-  });
+  try {
+    console.log('🔧 Starting server...');
+    console.log('📋 Environment variables:');
+    console.log(`  - PORT: ${process.env.PORT}`);
+    console.log(`  - NODE_ENV: ${process.env.NODE_ENV}`);
+    console.log(`  - MONGODB_URI: ${process.env.MONGODB_URI ? 'SET' : 'NOT SET'}`);
+    console.log(`  - SESSION_SECRET: ${process.env.SESSION_SECRET ? 'SET' : 'NOT SET'}`);
+    console.log(`  - FRONTEND_URL: ${process.env.FRONTEND_URL}`);
+    
+    console.log('🔌 Connecting to database...');
+    await connectDatabase();
+    
+    console.log('🌐 Starting Express server...');
+    app.listen(PORT, () => {
+      console.log(`🚀 Server running on http://localhost:${PORT}`);
+      console.log(`📊 API available at http://localhost:${PORT}/api`);
+    });
+  } catch (error) {
+    console.error('❌ Error starting server:', error);
+    process.exit(1);
+  }
 };
 
 startServer();
