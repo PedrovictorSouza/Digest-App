@@ -18,9 +18,13 @@ app.use(cors({
       'http://localhost:3001', 
       'http://localhost:3002',
       'http://localhost:3003',
-      'http://localhost:5173'
-    ];
-    if (!origin || allowedOrigins.some(allowed => origin.startsWith('http://localhost'))) {
+      'http://localhost:5173',
+      process.env.FRONTEND_URL || 'https://seu-app.vercel.app'
+    ].filter(Boolean);
+    
+    if (!origin || allowedOrigins.some(allowed => 
+      origin.startsWith('http://localhost') || origin === allowed
+    )) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
