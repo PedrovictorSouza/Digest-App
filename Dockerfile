@@ -1,0 +1,16 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY apps/backend/package*.json ./
+
+RUN npm ci --only=production
+
+COPY apps/backend ./
+
+RUN npm run build
+
+EXPOSE 8000
+
+CMD ["node", "dist/server.js"]
+
