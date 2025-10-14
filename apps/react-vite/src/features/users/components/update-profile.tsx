@@ -63,24 +63,24 @@ export const UpdateProfile = () => {
           <>
             <Input
               label="First Name"
-              error={formState.errors['firstName']}
+              error={formState.errors['firstName'] as any}
               registration={register('firstName')}
             />
             <Input
               label="Last Name"
-              error={formState.errors['lastName']}
+              error={formState.errors['lastName'] as any}
               registration={register('lastName')}
             />
             <Input
               label="Email Address"
               type="email"
-              error={formState.errors['email']}
+              error={formState.errors['email'] as any}
               registration={register('email')}
             />
 
             <Textarea
               label="Bio"
-              error={formState.errors['bio']}
+              error={formState.errors['bio'] as any}
               registration={register('bio')}
             />
           </>
