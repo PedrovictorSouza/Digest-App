@@ -17,7 +17,12 @@ export const LoginForm = ({ onSuccess }: LoginFormProps) => {
   const login = useLogin({
     onSuccess,
     onError: (error: any) => {
-      const message = error?.response?.data?.message || 'Erro ao fazer login';
+      console.error('Erro no login:', error);
+      const message = 
+        error?.response?.data?.message || 
+        error?.response?.data?.error ||
+        error?.message ||
+        'Erro ao fazer login. Verifique suas credenciais.';
       showToast(message);
     },
   });

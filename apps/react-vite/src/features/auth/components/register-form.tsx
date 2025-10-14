@@ -17,7 +17,12 @@ export const RegisterForm = ({ onSuccess }: RegisterFormProps) => {
   const registering = useRegister({
     onSuccess,
     onError: (error: any) => {
-      const message = error?.response?.data?.message || 'Erro ao criar conta';
+      console.error('Erro no registro:', error);
+      const message = 
+        error?.response?.data?.message || 
+        error?.response?.data?.error ||
+        error?.message ||
+        'Erro ao criar conta. Verifique os dados e tente novamente.';
       showToast(message);
     },
   });

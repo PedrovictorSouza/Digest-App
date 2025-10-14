@@ -33,9 +33,10 @@ export const register = async (req: Request, res: Response) => {
         lastName: user.lastName,
       },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro no registro:', error);
-    res.status(500).json({ message: 'Erro ao criar usuário' });
+    const message = error?.message || 'Erro ao criar usuário';
+    res.status(500).json({ message: `Erro ao criar usuário: ${message}` });
   }
 };
 
